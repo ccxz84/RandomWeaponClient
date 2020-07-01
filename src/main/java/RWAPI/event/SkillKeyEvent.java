@@ -43,6 +43,7 @@ public class SkillKeyEvent {
 	    if (keyBindings[0].isPressed()) //skill1
 	    {
 	        // DEBUG
+			System.out.println("test");
 	        main.network.sendToServer(new KeyInputPacket(Keyboard.KEY_Z));
 	        // do stuff for this key binding here
 	        // remember you may need to send packet to server
@@ -83,24 +84,23 @@ public class SkillKeyEvent {
         {
             float data = mc.player.getCooledAttackStrength(0.0F);
 	    	if(data >= 1){
-	    		
-	    		switch (rs.typeOfHit)
-                {
-                    case ENTITY:
-                    	mc.playerController.attackEntity(mc.player, rs.entityHit);
-                        break;
-                    case BLOCK:
-                       
 
-                    case MISS:
+	    		switch (rs.typeOfHit) {
+					case ENTITY:
+						mc.playerController.attackEntity(mc.player, rs.entityHit);
+						System.out.println("hit");
+						break;
+					case BLOCK:
+						break;
 
-                    	mc.player.resetCooldown();
-                        net.minecraftforge.common.ForgeHooks.onEmptyLeftClick(mc.player);
-                }
-	    		
+					case MISS:
+						mc.player.resetCooldown();
+						net.minecraftforge.common.ForgeHooks.onEmptyLeftClick(mc.player);
+						break;
+				}
 	    		mc.player.swingArm(EnumHand.MAIN_HAND);
 	    	}else {
-	    		//System.out.println("cool : " + mc.player.getCooledAttackStrength(0.0F));
+	    		System.out.println("cool : " + mc.player.getCooledAttackStrength(0.0F));
 	    	}
         }
 	}

@@ -79,15 +79,15 @@ public class ClientProxy implements IProxy {
 		}
 		
 		keyBindings = new KeyBinding[5];
-		keyBindings[0] = new KeyBinding("key.skill1", Keyboard.KEY_Z, "key.skill.category");
-		keyBindings[1] = new KeyBinding("key.skill2", Keyboard.KEY_X, "key.skill.category");
-		keyBindings[2] = new KeyBinding("key.skill3", Keyboard.KEY_C, "key.skill.category");
-		keyBindings[3] = new KeyBinding("key.skill4", Keyboard.KEY_V, "key.skill.category");
+		keyBindings[0] = new KeyBinding("key.skill1", Keyboard.KEY_Z, "key.category.gameplay");
+		keyBindings[1] = new KeyBinding("key.skill2", Keyboard.KEY_X, "key.category.gameplay");
+		keyBindings[2] = new KeyBinding("key.skill3", Keyboard.KEY_C, "key.category.gameplay");
+		keyBindings[3] = new KeyBinding("key.skill4", Keyboard.KEY_V, "key.category.gameplay");
 		//keyBindings[4] = new KeyBinding("key.inventory", Keyboard.KEY_E, "key.inventory.category");
 		
-		for (int i = 0; i < keyBindings.length; i++) 
+		for (int i = 0; i < keyBindings.length; i++)
 		{
-		    ClientRegistry.registerKeyBinding(keyBindings[i]);
+		 //   ClientRegistry.registerKeyBinding(keyBindings[i]);
 		}
 		Minecraft.getMinecraft().effectRenderer.registerParticle(200, new ParticleFlame.Factory());
 	}
