@@ -1,5 +1,7 @@
 package RWAPI.gui;
 
+import RWAPI.util.NetworkUtil;
+import net.minecraft.nbt.NBTTagCompound;
 import org.lwjgl.opengl.GL11;
 
 import com.google.common.base.MoreObjects;
@@ -40,6 +42,10 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import scala.Int;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
 public class StatusOverlay extends Gui {
 	
 	private static boolean EnemyStat;
@@ -79,10 +85,11 @@ public class StatusOverlay extends Gui {
 	public static int Height;
 	public static int Width;
 	
-	public static ClientData Enemydata = new ClientData();
+	private ClientData Enemydata = null;
 	
 	public static float[] cool = new float[14];
-	
+	private Object data;
+
 	public StatusOverlay() {
 		this.mc = Minecraft.getMinecraft();
 	}
@@ -110,7 +117,9 @@ public class StatusOverlay extends Gui {
 			event.setCanceled(true);
 			return;
 		}
-		
+
+
+
 		
 		
 		ScaledResolution res = event.getResolution();
@@ -121,13 +130,15 @@ public class StatusOverlay extends Gui {
 		float partialTicks = event.getPartialTicks();
 		EntityPlayer player = (EntityPlayer)mc.getRenderViewEntity();
 		defaultY =  Height - 22 + 22;
-		// Draw Health Bar
-		if(main.network != null) {
-			main.network.sendToServer(new PlayerHealthStatMessage());
-			main.network.sendToServer(new EnemyStatPacket());
+
+		//System.out.println(player.inventory.getStackInSlot(9));
+		data = NetworkUtil.receive("data");
+		if(data != null){
+			main.data=(ClientData)data;
 		}
+
 		//Level Bar
-		float expper = main.data.exp / main.data.expmax;
+		double expper = main.data.exp / main.data.expmax;
 		this.mc.getTextureManager().bindTexture(Gui.ICONS);
 		this.drawTexturedModalRect(halfWidth - status_textureX/2, defaultY-5, 0, 64, exp_textureX, expTextureY);
 		this.drawTexturedModalRect(halfWidth - status_textureX/2, defaultY-5, 0, 69, (int)(exp_textureX*expper), expTextureY);
@@ -135,10 +146,10 @@ public class StatusOverlay extends Gui {
 		//Level Text
 		
 		drawTextShadow("LV. " + main.data.level, halfWidth - status_textureX/2 - "LV. 10".length() - 14, defaultY-8, 0xffffff, 1);
-		
-		
-		float ManaPercent = main.data.CurrentMana / main.data.MaxMana;
-		float HealthPercent = main.data.CurrentHealth / main.data.MaxHealth;
+
+
+		double ManaPercent = main.data.CurrentMana / main.data.MaxMana;
+		double HealthPercent = main.data.CurrentHealth / main.data.MaxHealth;
 		
 		this.mc.getTextureManager().bindTexture(healthTexture);
 		
@@ -158,27 +169,28 @@ public class StatusOverlay extends Gui {
 		GL11.glColor4f(1, 1, 1,1);
 		this.drawTexturedModalRect(halfWidth - status_textureX/2, defaultY-(status_textureY/2)-expTextureY, 0,43, (int)(ManaPercent * status_textureX), status_textureY/2-1);
 		drawTextShadow(Mana, halfWidth-Mana.length()-4, defaultY-13-expTextureY, 0xffffff, 1);
-		
-		
-		
-		
-		
-		
-		
-		//Draw Enemy Bar		
-		if(Enemydata.EnemyStat) {
-			float EnemyPercent = Enemydata.CurrentHealth / Enemydata.MaxHealth;
-			
-			String EnemyHP = (int)Enemydata.CurrentHealth + " / " + (int)Enemydata.MaxHealth;
-			
-			this.mc.getTextureManager().bindTexture(healthTexture);
-			this.drawTexturedModalRect(halfWidth - status_textureX/2,15,0,2,status_textureX, (status_textureY/2));
-			drawTextShadow(Enemydata.Enemy, halfWidth - status_textureX/2, 6, 0xffffff , 1);
-			
-			this.mc.getTextureManager().bindTexture(healthTexture);
-			GL11.glColor4f(1, 1, 1,1);
-			this.drawTexturedModalRect(halfWidth - status_textureX/2, 17, 0,32, (int)(EnemyPercent * status_textureX), status_textureY/2-3);
-			drawTextShadow(EnemyHP, halfWidth-EnemyHP.length()-4, 18, 0xffffff , 1);
+
+
+
+
+
+		if(player.inventory.getStackInSlot(9).getTagCompound() != null){
+
+			Enemydata = (ClientData) NetworkUtil.receive("enemy");
+			if(Enemydata != null){
+				double EnemyPercent = Enemydata.CurrentHealth / Enemydata.MaxHealth;
+
+				String EnemyHP = (int)Enemydata.CurrentHealth + " / " + (int)Enemydata.MaxHealth;
+
+				this.mc.getTextureManager().bindTexture(healthTexture);
+				this.drawTexturedModalRect(halfWidth - status_textureX/2,15,0,2,status_textureX, (status_textureY/2));
+				drawTextShadow(Enemydata.Enemy, halfWidth - status_textureX/2, 6, 0xffffff , 1);
+
+				this.mc.getTextureManager().bindTexture(healthTexture);
+				GL11.glColor4f(1, 1, 1,1);
+				this.drawTexturedModalRect(halfWidth - status_textureX/2, 17, 0,32, (int)(EnemyPercent * status_textureX), status_textureY/2-3);
+				drawTextShadow(EnemyHP, halfWidth-EnemyHP.length()-4, 18, 0xffffff , 1);
+			}
 		}
 		
 		//Draw Timer
@@ -186,6 +198,18 @@ public class StatusOverlay extends Gui {
 			drawTextShadow(main.data.timerFlag, 3, 4, 0xffffff , (float)1);
 			drawTextShadow(main.data.timer/60 + ":" +String.format("%02d", main.data.timer%60), 12, 12, 0xffffff , (float)1.001);
 		}
+
+		//hud text
+		drawTextShadow("Total Score", Width-44-5, 5, 0xffffff , (float)1);//글자하나당 4
+		drawTextShadow("CS", Width-44-8-5-8, 5, 0xffffff , (float)1);
+		drawTextShadow("Death", Width-8-8-8-5-44-20, 5, 0xffffff , (float)1);
+		drawTextShadow("Kill", Width-8-8-8-8-5-16-44-20, 5, 0xffffff , (float)1);
+
+		//hud info
+		drawTextShadow(String.format("%.2f",main.data.total_score), Width-((main.data.total_score+"").length()*2)-5-22, 15, 0xffffff , (float)1);
+		drawTextShadow(""+main.data.cs, Width-((main.data.cs+"").length()*2)-44-8-5-4, 15, 0xffffff , (float)1);
+		drawTextShadow(""+main.data.death, Width-((main.data.death+"").length()*2)-8-8-8-5-44-10, 15, 0xffffff , (float)1);
+		drawTextShadow(""+main.data.kill, Width-((main.data.kill+"").length()*2)-8-8-8-8-5-8-44-20, 15, 0xffffff , (float)1);
 		
 		
 		//Draw ItemUI

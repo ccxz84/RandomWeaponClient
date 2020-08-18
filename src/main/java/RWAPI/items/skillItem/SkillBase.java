@@ -12,9 +12,9 @@ import net.minecraft.item.Item;
 public class SkillBase extends Item implements IHasModel{
 	int ItemCode;
 	
-	public SkillBase(String name) {
+	public SkillBase(String classname, String name) {
 		setUnlocalizedName(name);
-		setRegistryName(name);
+		setRegistryName("skills/"+classname+"/"+name);
 		this.maxStackSize = 1;
 		ModItems.skill.add(this);
 		ItemCode = Item.getIdFromItem(this);

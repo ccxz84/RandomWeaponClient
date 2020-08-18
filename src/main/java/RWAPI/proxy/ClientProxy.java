@@ -32,7 +32,9 @@ public class ClientProxy implements IProxy {
 	public static KeyBinding[] keyBindings;
 	@Override
 	public void registerItemRenderer(Item item, int meta, String id) {
+		System.out.println("item : " + item.getRegistryName());
 		ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(item.getRegistryName(), id));
+		System.out.println("item path : " +new ModelResourceLocation(item.getRegistryName(),id).getResourcePath());
 	}
 	
 	@Override

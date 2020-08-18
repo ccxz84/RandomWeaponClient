@@ -1,5 +1,9 @@
 package RWAPI.gui;
 
+import RWAPI.Character.ClientData;
+import RWAPI.util.NetworkUtil;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
 import org.lwjgl.opengl.GL11;
 
 import RWAPI.main;
@@ -9,6 +13,10 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 
 public class InventoryGui extends GuiContainer {
 	
@@ -25,6 +33,7 @@ public class InventoryGui extends GuiContainer {
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 		// TODO Auto-generated method stub
+
 		GL11.glColor4f(1, 1, 1, 1);
 		this.mc.renderEngine.bindTexture(base_gui);
 		drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
@@ -40,17 +49,19 @@ public class InventoryGui extends GuiContainer {
 		
 		
 		drawText("체력 재생", this.guiLeft + 100,this.guiTop + 10, 0x16c925);//빨간색
-		drawText("" + main.data.regenHealth, this.guiLeft + 145,this.guiTop + 10, 0xffffff);
+		drawText("" + String.format("%.2f",main.data.regenHealth), this.guiLeft + 145,this.guiTop + 10, 0xffffff);
 		
 		drawText("마나 재생", this.guiLeft + 100,this.guiTop + 20, 0xa816c9);//파란색
-		drawText("" + main.data.regenMana, this.guiLeft + 145,this.guiTop + 20, 0xffffff);
+		drawText("" + String.format("%.2f",main.data.regenMana), this.guiLeft + 145,this.guiTop + 20, 0xffffff);
 		
 		drawText("공격 속도", this.guiLeft + 100,this.guiTop + 30, 0x0);//파란색
-		drawText("" + main.data.attackSpeed, this.guiLeft + 145,this.guiTop + 30, 0xffffff);
+		drawText("" + String.format("%.2f",main.data.attackSpeed), this.guiLeft + 145,this.guiTop + 30, 0xffffff);
 		
 		drawText("경험치", this.guiLeft + 55,this.guiTop + 42, 0xffcf00);//파란색
 		drawText((int)main.data.exp + " / " + (int)main.data.expmax, this.guiLeft + 90,this.guiTop + 42, 0xffffff);
 	}
+
+
 
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {

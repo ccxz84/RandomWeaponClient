@@ -26,7 +26,7 @@ public class RenderStrike extends Render<EntityStrike>{
 		super(renderManager);
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	@Override
 	public void doRender(EntityStrike entity, double x, double y, double z, float entityYaw, float partialTicks) {
 		GlStateManager.pushMatrix();

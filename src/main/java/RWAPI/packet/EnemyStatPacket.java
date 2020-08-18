@@ -52,7 +52,7 @@ public class EnemyStatPacket implements IMessage{
 		@Override
 		public IMessage onMessage(EnemyStatPacket message, MessageContext ctx) {
 			// TODO Auto-generated method stub
-			StatusOverlay.Enemydata = message.data;
+			//StatusOverlay.Enemydata = message.data;
 			return null;
 		}
 		

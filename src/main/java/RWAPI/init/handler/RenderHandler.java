@@ -8,6 +8,8 @@ import RWAPI.Character.Leesin.render.RenderTempest;
 import RWAPI.Character.Leesin.render.RenderResonating;
 import RWAPI.Character.Leesin.render.RenderStrike;
 import RWAPI.Character.Leesin.render.RenderUmpa;
+import RWAPI.Character.MasterYi.entity.EntityAlpha;
+import RWAPI.Character.MasterYi.render.RenderAlpha;
 import RWAPI.Character.monster.entity.EntityMinion;
 import RWAPI.Character.monster.render.RenderMinion;
 import RWAPI.Character.shop.entity.EntityMerchant;
@@ -23,5 +25,6 @@ public class RenderHandler {
 		RenderingRegistry.registerEntityRenderingHandler(EntityResonating.class, new RenderResonating.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityStrike.class, new RenderStrike.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityTempest.class, new RenderTempest.Factory());
+		RenderingRegistry.registerEntityRenderingHandler(EntityAlpha.class, new RenderAlpha.Factory());
 	}
 }

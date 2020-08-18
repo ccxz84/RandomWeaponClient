@@ -13,7 +13,7 @@ public class ItemBase extends Item implements IHasModel{
 	
 	public ItemBase(String name) {
 		setUnlocalizedName(name);
-		setRegistryName(name);
+		setRegistryName("item/"+name);
 		this.maxStackSize = 1;
 	}
 
@@ -22,5 +22,6 @@ public class ItemBase extends Item implements IHasModel{
 		// TODO Auto-generated method stub
 		main.proxy.registerItemRenderer(this, 0 ,"inventory");
 	}
+
 
 }

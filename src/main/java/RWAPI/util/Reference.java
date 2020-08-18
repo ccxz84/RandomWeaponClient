@@ -15,5 +15,6 @@ public class Reference {
 	public static final int ENTITY_RESONATING = 201;
 	public static final int ENTITY_STRIKE = 202;
 	public static final int ENTITY_TEMPEST = 203;
+	public static final int ENTITY_ALPHA = 204;
 	
 }

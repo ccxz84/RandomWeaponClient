@@ -134,25 +134,25 @@ public class ShopGui extends GuiContainer{
 		public ShopUI(InventoryPlayer playerInv) {
 			inven = new Inventory();
 			// Player Inventory, Slot 9-35, Slot IDs 9-35
-		    for (int y = 0; y < 5; ++y) {
-		        for (int x = 0; x < 6; ++x) {
-		        	this.addSlotToContainer(new Slot(inven, x + y * 6, 8 + x * 18, 18+y * 18));
-		        }
-		    }
-		    
-		    
+			for (int y = 0; y < 5; ++y) {
+				for (int x = 0; x < 6; ++x) {
+					this.addSlotToContainer(new Slot(inven, x + y * 6, 8 + x * 18, 18+y * 18));
+				}
+			}
 
-		    // Player Inventory, Slot 0-8, Slot IDs 36-44
-		    
-		    for (int y = 0; y < 3; ++y) {
-		        for (int x = 0; x < 9; ++x) {
-		            this.addSlotToContainer(new Slot(playerInv, x + y * 9 + 9, 8 + x * 18, 121+y * 18));
-		        }
-		    }
-		    
-		    for (int x = 0; x < 9; ++x) {
-		        this.addSlotToContainer(new Slot(playerInv, x, 8 + x * 18, 179));
-		    }
+
+
+			// Player Inventory, Slot 0-8, Slot IDs 36-44
+
+			for (int y = 0; y < 3; ++y) {
+				for (int x = 0; x < 9; ++x) {
+					this.addSlotToContainer(new Slot(playerInv, x + y * 9 + 9, 8 + x * 18, 121+y * 18));
+				}
+			}
+
+			for (int x = 0; x < 9; ++x) {
+				this.addSlotToContainer(new Slot(playerInv, x, 8 + x * 18, 179));
+			}
 		    
 		    //this.addSlotToContainer(new Slot(new ItemButton(ItemStack.EMPTY),0,190,18));
 		    scrollTo(0);

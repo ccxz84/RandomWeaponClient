@@ -24,8 +24,8 @@ public class joinEvent {
 		if(event.getEntity() instanceof EntityPlayer && main.network == null) {
 			main.network = NetworkRegistry.INSTANCE.newSimpleChannel(event.getEntity().getName());
 			int channel = 1;
-			main.network.registerMessage(HealthStatusHandler.class, PlayerHealthStatMessage.class, channel++, Side.CLIENT);
-			main.network.registerMessage(HealthStatusHandler.class, PlayerHealthStatMessage.class, channel++, Side.SERVER);
+			//main.network.registerMessage(HealthStatusHandler.class, PlayerHealthStatMessage.class, channel++, Side.CLIENT);
+			//main.network.registerMessage(HealthStatusHandler.class, PlayerHealthStatMessage.class, channel++, Side.SERVER);
 			main.network.registerMessage(KeyInputHandler.class, KeyInputPacket.class, channel++, Side.SERVER);
 			main.network.registerMessage(InventoryOpenHandler.class, InventoryOpenPacket.class, channel++, Side.SERVER);
 			main.network.registerMessage(EnemyStatHandler.class, EnemyStatPacket.class, channel++, Side.CLIENT);
