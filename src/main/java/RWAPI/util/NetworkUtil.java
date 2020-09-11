@@ -1,8 +1,10 @@
 package RWAPI.util;
 
+import RWAPI.Character.ClientData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -29,6 +31,15 @@ public class NetworkUtil {
         return ob;
      }
 
+     public static double receiveItemCool(int idx){
+         EntityPlayer player = Minecraft.getMinecraft().player;
+         double cool = 0;
+         if(player.inventory.getStackInSlot(idx).getTagCompound() != null) {
+             NBTTagCompound nbt = player.inventory.getStackInSlot(idx).getTagCompound();
+             cool = nbt.getDouble("cool");
+         }
+         return cool;
+     }
 
 
 }

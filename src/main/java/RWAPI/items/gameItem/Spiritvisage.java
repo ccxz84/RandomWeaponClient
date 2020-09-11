@@ -13,7 +13,7 @@ public class Spiritvisage extends ItemBase {
 		down_item[0] =ModItems.Spectrescowl;
 		down_item[1] =ModItems.Kindlegem;
 		
-		phase = 3;
+		phase = 1;
 		// TODO Auto-generated constructor stub
 	}
 }

@@ -14,7 +14,7 @@ public class Warmogsarmor extends ItemBase {
 		down_item[1] =ModItems.Giantsbelt;
 		down_item[2] =ModItems.Crystallinebracer;
 		
-		phase = 3;
+		phase = 1;
 		// TODO Auto-generated constructor stub
 	}
 }

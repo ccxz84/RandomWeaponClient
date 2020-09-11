@@ -2,7 +2,10 @@ package RWAPI.gui;
 
 import RWAPI.Character.ClientData;
 import RWAPI.util.NetworkUtil;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.inventory.Slot;
 import net.minecraft.nbt.NBTTagCompound;
 import org.lwjgl.opengl.GL11;
 
@@ -31,9 +34,42 @@ public class InventoryGui extends GuiContainer {
 	}
 
 	@Override
+	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+		GlStateManager.disableLighting();
+		GlStateManager.disableDepth();
+		GlStateManager.disableBlend();
+		for (int y = 0; y < 3; ++y) {
+			for (int x = 0; x < 9; ++x) {
+				double dcool = NetworkUtil.receiveItemCool(3*y+x);
+				String cool = dcool < 1 ? String.format("%.2f", dcool) : String.format("%d", (int)dcool);
+
+				if(dcool <= 0)
+					continue;
+				drawText(cool,8 + x * 18+ 4 , 51+y * 18 + 3,0xffffff);
+			}
+		}
+
+		for (int x = 0; x < 9; ++x) {
+			double dcool = NetworkUtil.receiveItemCool(x);
+			String cool = dcool < 1 ? String.format("%.2f", dcool) : String.format("%d", (int)dcool);
+
+			if(dcool <= 0)
+				continue;
+			drawText(cool,8 + x * 18 + 4, 108 + 3,0xffffff);
+		}
+
+		GlStateManager.enableLighting();
+		GlStateManager.enableDepth();
+		GlStateManager.enableBlend();
+
+	}
+
+
+
+	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 		// TODO Auto-generated method stub
-
 		GL11.glColor4f(1, 1, 1, 1);
 		this.mc.renderEngine.bindTexture(base_gui);
 		drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
@@ -59,6 +95,8 @@ public class InventoryGui extends GuiContainer {
 		
 		drawText("경험치", this.guiLeft + 55,this.guiTop + 42, 0xffcf00);//파란색
 		drawText((int)main.data.exp + " / " + (int)main.data.expmax, this.guiLeft + 90,this.guiTop + 42, 0xffffff);
+
+
 	}
 
 
@@ -67,10 +105,8 @@ public class InventoryGui extends GuiContainer {
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		// TODO Auto-generated method stub
 		super.drawScreen(mouseX, mouseY, partialTicks);
-		
-		
-		
-		
+
+		renderHoveredToolTip(mouseX,mouseY);
 		
 	}
 	
@@ -78,6 +114,9 @@ public class InventoryGui extends GuiContainer {
 	{
 		this.mc.fontRenderer.drawStringWithShadow(text, x, y, hexColor);
 	}
-	
-	
+
+	@Override
+	protected void renderHoveredToolTip(int p_191948_1_, int p_191948_2_) {
+		super.renderHoveredToolTip(p_191948_1_, p_191948_2_);
+	}
 }

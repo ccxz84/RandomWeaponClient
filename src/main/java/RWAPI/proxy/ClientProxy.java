@@ -4,17 +4,13 @@ import org.lwjgl.input.Keyboard;
 
 import RWAPI.main;
 import RWAPI.Character.Leesin.particle.ParticleFlame;
-import RWAPI.Character.Player.RenderPlayer;
 import RWAPI.event.ContainerEvent;
 import RWAPI.event.SkillKeyEvent;
 import RWAPI.event.joinEvent;
 import RWAPI.gui.StatusOverlay;
-import RWAPI.init.ModItems;
 import RWAPI.init.handler.GuiHandler;
 import RWAPI.init.handler.RegistryHandler;
 import RWAPI.util.Reference;
-import api.player.render.RenderPlayerAPI;
-import api.player.render.RenderPlayerBaseSorting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.settings.KeyBinding;
@@ -50,11 +46,9 @@ public class ClientProxy implements IProxy {
 	
 	@Override
 	public void init(FMLInitializationEvent event) {
-		System.out.println(Reference.MODID + "client :init");	
-		RenderPlayerBaseSorting renderSorting = new RenderPlayerBaseSorting();
-		RenderPlayerAPI.register(Reference.MODID, RenderPlayer.class, renderSorting);
+		System.out.println(Reference.MODID + "client :init");
 		NetworkRegistry.INSTANCE.registerGuiHandler(main.instance, new GuiHandler());
-		for(int i = 0; i<72; i++) {
+		/*for(int i = 0; i<72; i++) {
 			if(i==0) {
 				ModItems.temp.add(ModItems.Dagger);
 				continue;
@@ -78,14 +72,15 @@ public class ClientProxy implements IProxy {
 				continue;
 			}
 			ModItems.temp.add(ModItems.VampiricScepter);
-		}
+		}*/
 		
-		keyBindings = new KeyBinding[5];
+		keyBindings = new KeyBinding[6];
 		keyBindings[0] = new KeyBinding("key.skill1", Keyboard.KEY_Z, "key.skill.category");
 		keyBindings[1] = new KeyBinding("key.skill2", Keyboard.KEY_X, "key.skill.category");
 		keyBindings[2] = new KeyBinding("key.skill3", Keyboard.KEY_C, "key.skill.category");
-		keyBindings[3] = new KeyBinding("key.skill4", Keyboard.KEY_V, "key.skill.category");
-		//keyBindings[4] = new KeyBinding("key.inventory", Keyboard.KEY_E, "key.inventory.category");
+		keyBindings[4] = new KeyBinding("key.skill4", Keyboard.KEY_V, "key.skill.category");
+		keyBindings[3] = new KeyBinding("key.skill5", Keyboard.KEY_B, "key.skill.category");
+		keyBindings[5] = new KeyBinding("key.skill6", Keyboard.KEY_G, "key.skill.category");
 		
 		for (int i = 0; i < keyBindings.length; i++) 
 		{

@@ -41,7 +41,7 @@ public class InventoryUI extends Container {
 	@Override
 	public ItemStack slotClick(int slotId, int dragType, ClickType clickTypeIn, EntityPlayer player) {
 		// TODO Auto-generated method stub
-		if(slotId == 0)
+		if(slotId == 0 || slotId == 27)
 			return ItemStack.EMPTY;
 		return super.slotClick(slotId, dragType, clickTypeIn, player);
 	}

@@ -18,6 +18,9 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 public class RenderUmpa extends Render<EntityUmpa> {
 	
 	private static final ResourceLocation TEXTURE = new ResourceLocation(Reference.MODID + ":textures/entity/umpa.png");
+
+	public static float playerViewY;
+	public static float playerViewX;
 	
 	private ModelUmpa model = new ModelUmpa();
 	@Override
@@ -56,6 +59,7 @@ public class RenderUmpa extends Render<EntityUmpa> {
 		tessellator.draw();
 		GlStateManager.popAttrib();
 		GlStateManager.popMatrix();
+
 	}
 
 	protected RenderUmpa(RenderManager renderManager) {

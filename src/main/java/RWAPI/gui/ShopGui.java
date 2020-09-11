@@ -1,8 +1,17 @@
 package RWAPI.gui;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.List;
 
+import RWAPI.main;
+import RWAPI.packet.ShopScrollPacket;
+import net.minecraft.client.network.NetHandlerPlayClient;
+import net.minecraft.inventory.*;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.play.server.SPacketSetSlot;
+import net.minecraft.util.NonNullList;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import RWAPI.gui.button.buyButton;
@@ -16,18 +25,15 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.ClickType;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ShopGui extends GuiContainer{
-	private ShopUI inv;
 	private static final ResourceLocation base_gui = new ResourceLocation(Reference.MODID + ":textures/gui/shop.png");
+	ShopUI inv;
+	private ItemStack currentstack = ItemStack.EMPTY;
 	
 	public ShopGui(Container inventorySlotsIn) {
 		super(inventorySlotsIn);
@@ -40,6 +46,13 @@ public class ShopGui extends GuiContainer{
 	}
 
 	@Override
+	public void initGui() {
+		super.initGui();
+		((ShopUI) this.inventorySlots).addShopGui(this);
+
+	}
+
+	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 		// TODO Auto-generated method stub
 		GL11.glColor4f(1, 1, 1, 1);
@@ -48,6 +61,11 @@ public class ShopGui extends GuiContainer{
 		GL11.glColor4f(1, 1, 1, 1);
 		this.mc.renderEngine.bindTexture(base_gui);
 		drawTexturedModalRect(this.guiLeft + 121, this.guiTop + 15 + ((75/inv.scrollMax)*inv.scroll), 244, 239, 12, 17);
+
+		if(!currentstack.equals(ItemStack.EMPTY)){
+			drawText(((ItemBase)currentstack.getItem()).name, this.guiLeft + 163 - (((ItemBase)currentstack.getItem()).name.length()),this.guiTop + 95, 0xffffff, 1);
+			drawText(((ItemBase)currentstack.getItem()).gold + " Gold", this.guiLeft + 163 - (((ItemBase)currentstack.getItem()).name.length()),this.guiTop + 105, 0xffffff, 1);
+		}
 		//drawTexturedModalRect(this.guiLeft + 121, this.guiTop + 15, 244, 239, 12, 17);
 	}
 	
@@ -56,7 +74,7 @@ public class ShopGui extends GuiContainer{
 		super.handleMouseInput();
 		int wheelState = Mouse.getEventDWheel();
 		if (wheelState != 0) {
-			inv.scroll += wheelState > 0 ? -1 : 1;	
+			inv.scroll += wheelState > 0 ? -1 : 1;
 			handleScrollPos();
 			inv.scrollTo(inv.scroll);
 		}
@@ -68,19 +86,30 @@ public class ShopGui extends GuiContainer{
 		else if(inv.scroll > inv.scrollMax)
 			inv.scroll = inv.scrollMax;
 	}
-	
+
+	@Override
+	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+		// TODO Auto-generated method stub
+		super.drawScreen(mouseX, mouseY, partialTicks);
+		//System.out.println(this.inventorySlots.inventorySlots.get(0).getStack().hashCode());
+		renderHoveredToolTip(mouseX,mouseY);
+		this.inventorySlots.detectAndSendChanges();
+
+	}
+
 	private void Createbutton(ItemStack stack) {
 		
-		buyButton button = new buyButton(1,310,100,30,20,"구매");
+		buyButton button = new buyButton(1,guiLeft+223,guiTop + 95,30,20,"구매");
 		this.addButton(button);
-		
+		currentstack = stack;
+
 		int x = inv.inventorySlots.size();
 		for(int i =66;i<x;i++) {
 			inv.inventorySlots.remove(inv.inventorySlots.get(66));
 			
 		}
-		DrawButton(stack,ModItems.temp.get(ModItems.temp.indexOf(stack.getItem())).down_item,187,18,ModItems.temp.get(ModItems.temp.indexOf(stack.getItem())).phase);
-		inv.addSlotToContainer(new Slot(new ItemButton(stack),0,145,97));
+		DrawButton(stack,ModItems.ITEMS.get(ModItems.ITEMS.indexOf(stack.getItem())).down_item,187,18,ModItems.ITEMS.get(ModItems.ITEMS.indexOf(stack.getItem())).phase);
+		inv.addSlotToContainer(new Slot(new ItemButton(stack),0,137,97));
 	}
 	
 	private void DrawButton(ItemStack stack, ItemBase[] down_item, int x, int y,int phase) {
@@ -122,12 +151,19 @@ public class ShopGui extends GuiContainer{
 			}
 		}
 	}
+
+	private void drawText(String text, int x, int y, int hexColor , float size) {
+		GL11.glScalef(size,size,size);
+		float mSize = (float)Math.pow(size,-1);
+		this.mc.fontRenderer.drawString(text, Math.round(x / size),Math.round(y / size), hexColor);
+		GL11.glScalef(mSize,mSize,mSize);
+	}
 	
 	
 	@SideOnly(Side.CLIENT)
-	public static class ShopUI extends Container{
+	public static class ShopUI extends Container implements IContainerListener{
 		public int scroll = 0;
-		public int scrollMax = 7;
+		public int scrollMax = ModItems.ITEMS.size()%32 == 0 ? ModItems.ITEMS.size()/32:(ModItems.ITEMS.size()/32) + 1;
 		private Inventory inven;
 		private ShopGui gui;
 		
@@ -153,13 +189,13 @@ public class ShopGui extends GuiContainer{
 			for (int x = 0; x < 9; ++x) {
 				this.addSlotToContainer(new Slot(playerInv, x, 8 + x * 18, 179));
 			}
-		    
+
 		    //this.addSlotToContainer(new Slot(new ItemButton(ItemStack.EMPTY),0,190,18));
+			System.out.println(this.getInventory().size());
 		    scrollTo(0);
-		    
+			this.addListener(this);
 		}
-		
-		
+
 		
 		@Override
 		public Slot addSlotToContainer(Slot slotIn) {
@@ -172,7 +208,8 @@ public class ShopGui extends GuiContainer{
 		public void scrollTo(int pos)
 	    {
 	        this.scroll = pos;
-	        inven.setLowerLimit(scroll * 6);
+	        //inven.setLowerLimit(scroll * 6);
+			main.network.sendToServer(new ShopScrollPacket(pos,this.windowId));
 	    }
 		
 		@Override
@@ -195,7 +232,7 @@ public class ShopGui extends GuiContainer{
 				if(dragType==0) {//left click
 					ItemStack stack = inven.getStackInSlot(slotId);
 					
-					if(stack == null) {
+					if(stack == null || stack.equals(ItemStack.EMPTY)) {
 						return ItemStack.EMPTY;
 					}
 					
@@ -204,12 +241,15 @@ public class ShopGui extends GuiContainer{
 				
 				return ItemStack.EMPTY;
 			}
+
+			if(slotId == 30 || slotId == 57)
+				return ItemStack.EMPTY;
 			
 			if(slotId > 65) {
 				if(dragType==0) {//left click
 					ItemStack stack = this.getSlot(slotId).getStack();
 					
-					if(stack == null) {
+					if(stack == null || stack.equals(ItemStack.EMPTY)) {
 						System.out.println("test");
 						return ItemStack.EMPTY;
 					}
@@ -228,6 +268,34 @@ public class ShopGui extends GuiContainer{
 		public ShopGui addShopGui(ShopGui instance) {
 			gui = instance;
 			return gui;
+		}
+
+		@Override
+		public void detectAndSendChanges() {
+			super.detectAndSendChanges();
+		}
+
+		@Override
+		public void addListener(IContainerListener listener) {
+			super.addListener(listener);
+		}
+
+		@Override
+		public void sendAllContents(Container containerToSend, NonNullList<ItemStack> itemsList) {
+
+		}
+
+		@Override
+		public void sendSlotContents(Container containerToSend, int slotInd, ItemStack stack) {
+
+		}
+
+		@Override
+		public void sendWindowProperty(Container containerIn, int varToUpdate, int newValue) {
+		}
+
+		@Override
+		public void sendAllWindowProperties(Container containerIn, IInventory inventory) {
 		}
 	}
 }

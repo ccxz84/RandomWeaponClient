@@ -13,7 +13,7 @@ public class Youmuusghostblade extends ItemBase {
 		down_item[0] =ModItems.Serrateddirk;
 		down_item[1] =ModItems.Caulfieldswarhammer;
 		
-		phase = 3;
+		phase = 1;
 		// TODO Auto-generated constructor stub
 	}
 }

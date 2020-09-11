@@ -20,6 +20,7 @@ public class RegistryHandler {
 		event.getRegistry().registerAll(ModItems.ITEMS.toArray(new Item[0]));
 		event.getRegistry().registerAll(ModItems.skill.toArray(new Item[0]));
 		event.getRegistry().registerAll(ModItems.weapon.toArray(new Item[0]));
+		event.getRegistry().register(ModItems.RUBY);
 	}
 	
 	@SubscribeEvent
@@ -40,6 +41,7 @@ public class RegistryHandler {
 				((IHasModel)item).registerModels();
 			}
 		}
+		((IHasModel)ModItems.RUBY).registerModels();
 	}
 
 	public static void preInitRegistries() {

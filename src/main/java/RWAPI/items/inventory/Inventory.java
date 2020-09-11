@@ -2,15 +2,22 @@ package RWAPI.items.inventory;
 
 
 import RWAPI.init.ModItems;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.play.server.SPacketSetSlot;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 
 public class Inventory extends TileEntity implements IInventory{
 	
@@ -188,7 +195,12 @@ public class Inventory extends TileEntity implements IInventory{
 		this.inventoryContents.clear();
 		int x = 0;
 		for(int i = lim; i<lim+30;i++) {
-			this.inventoryContents.set(x++, new ItemStack(ModItems.temp.get(i)));
+			if(i >=ModItems.ITEMS.size()){
+				this.inventoryContents.set(x++,ItemStack.EMPTY);
+			}
+			else{
+				this.inventoryContents.set(x++, new ItemStack(ModItems.ITEMS.get(i))); //수정
+			}
 		}
 		
 	}

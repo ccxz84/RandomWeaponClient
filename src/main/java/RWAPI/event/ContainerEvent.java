@@ -20,6 +20,7 @@ public class ContainerEvent {
 		
 		if (screen instanceof GuiInventory)
 		{
+			//Minecraft.getMinecraft().player.connection.sendPacket();
 			Minecraft.getMinecraft().displayGuiScreen((GuiScreen) null);
 			main.network.sendToServer(new InventoryOpenPacket(Minecraft.getMinecraft().player.getUniqueID().toString()));
 			

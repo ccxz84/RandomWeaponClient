@@ -35,8 +35,7 @@ public class GuiHandler implements IGuiHandler {
 			return new InventoryGui(new InventoryUI(player.inventory));
 		}
 		if(ID == MOD_SHOP_GUI) {
-			ShopGui.ShopUI instance = new ShopGui.ShopUI(player.inventory);
-			return instance.addShopGui(new ShopGui(instance));
+			return new ShopGui(new ShopGui.ShopUI(player.inventory));
 		}
 		
 		

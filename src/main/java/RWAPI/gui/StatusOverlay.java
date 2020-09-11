@@ -2,6 +2,7 @@ package RWAPI.gui;
 
 import RWAPI.util.NetworkUtil;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.play.client.CPacketHeldItemChange;
 import org.lwjgl.opengl.GL11;
 
 import com.google.common.base.MoreObjects;
@@ -137,11 +138,26 @@ public class StatusOverlay extends Gui {
 			main.data=(ClientData)data;
 		}
 
+		if(player.inventory.currentItem != 0){
+			((EntityPlayerSP)player).connection.sendPacket(new CPacketHeldItemChange(player.inventory.currentItem));
+			player.inventory.currentItem=0;
+		}
+
+
 		//Level Bar
 		double expper = main.data.exp / main.data.expmax;
+		GL11.glColor4f(1, 1, 1, 1);
 		this.mc.getTextureManager().bindTexture(Gui.ICONS);
 		this.drawTexturedModalRect(halfWidth - status_textureX/2, defaultY-5, 0, 64, exp_textureX, expTextureY);
 		this.drawTexturedModalRect(halfWidth - status_textureX/2, defaultY-5, 0, 69, (int)(exp_textureX*expper), expTextureY);
+
+		//recall bar
+		double recall = (double) (NetworkUtil.receive("recall") == null ? 0.0 : NetworkUtil.receive("recall"));
+		if(recall != 0){
+			this.drawTexturedModalRect(halfWidth - status_textureX/2, defaultY-status_textureY+2-expTextureY - expTextureY - 2, 0, 64, exp_textureX, expTextureY);
+			this.drawTexturedModalRect(halfWidth - status_textureX/2, defaultY-status_textureY+2-expTextureY - expTextureY - 2, 0, 69, (int)(exp_textureX*recall), expTextureY);
+		}
+
 		
 		//Level Text
 		
@@ -206,7 +222,7 @@ public class StatusOverlay extends Gui {
 		drawTextShadow("Kill", Width-8-8-8-8-5-16-44-20, 5, 0xffffff , (float)1);
 
 		//hud info
-		drawTextShadow(String.format("%.2f",main.data.total_score), Width-((main.data.total_score+"").length()*2)-5-22, 15, 0xffffff , (float)1);
+		drawTextShadow(String.format("%.2f",main.data.total_score), Width-(String.format("%.2f",main.data.total_score).length()*2)-5-22, 15, 0xffffff , (float)1);
 		drawTextShadow(""+main.data.cs, Width-((main.data.cs+"").length()*2)-44-8-5-4, 15, 0xffffff , (float)1);
 		drawTextShadow(""+main.data.death, Width-((main.data.death+"").length()*2)-8-8-8-5-44-10, 15, 0xffffff , (float)1);
 		drawTextShadow(""+main.data.kill, Width-((main.data.kill+"").length()*2)-8-8-8-8-5-8-44-20, 15, 0xffffff , (float)1);
@@ -230,7 +246,20 @@ public class StatusOverlay extends Gui {
         
         for(int i=0;i<3;i++) {
         	for(int j=0;j<3;j++) {
-        		this.renderHotbarItem(res.getScaledWidth()-item_textureX + 3 + 20*j, Height - gold_textureY-item_textureY + 3 + 21*i, partialTicks, player, player.inventory.mainInventory.get(i*3+j));
+        		double dcool = NetworkUtil.receiveItemCool(i*3+j);
+
+        		String cool = dcool < 1 ? String.format("%.2f", dcool) : String.format("%d", (int)dcool);
+        		this.renderHotbarItem(res.getScaledWidth()-item_textureX + 3 + 20*j, Height - gold_textureY-item_textureY + 3 + 21*i,
+						partialTicks, player, player.inventory.mainInventory.get(i*3+j));
+				if(dcool <= 0)
+					continue;
+				GlStateManager.disableLighting();
+				GlStateManager.disableDepth();
+				GlStateManager.disableBlend();
+				drawTextShadow(cool, res.getScaledWidth()-item_textureX + 7 + 20*j, Height - gold_textureY-item_textureY + 7 + 21*i, 0xffffff, (float)1);
+				GlStateManager.enableLighting();
+				GlStateManager.enableDepth();
+				GlStateManager.enableBlend();
         	}
         }
         

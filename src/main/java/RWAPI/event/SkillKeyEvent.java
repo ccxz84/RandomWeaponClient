@@ -35,6 +35,7 @@ public class SkillKeyEvent {
 	@SubscribeEvent(priority=EventPriority.NORMAL, receiveCanceled=true)
 	public void onEvent(KeyInputEvent event)
 	{
+		GameSettings gs = mc.gameSettings;
 	    // DEBUG	
 	    // make local copy of key binding array
 	    KeyBinding[] keyBindings = ClientProxy.keyBindings;
@@ -64,13 +65,30 @@ public class SkillKeyEvent {
 	        // do stuff for this key binding here
 	        // remember you may need to send packet to server
 	    }
-	    if (keyBindings[3].isPressed()) //skill4
+	    if (keyBindings[4].isPressed()) //skill4
 	    {
 	        // DEBUG
 	    	main.network.sendToServer(new KeyInputPacket(Keyboard.KEY_V));
 	        // do stuff for this key binding here
 	        // remember you may need to send packet to server
 	    }
+
+		if (keyBindings[3].isPressed()) //skill4
+		{
+			// DEBUG
+			main.network.sendToServer(new KeyInputPacket(Keyboard.KEY_B));
+			// do stuff for this key binding here
+			// remember you may need to send packet to server
+		}
+
+		if (keyBindings[5].isPressed()) //skill4
+		{
+			// DEBUG
+			System.out.println("information");
+			main.network.sendToServer(new KeyInputPacket(Keyboard.KEY_G));
+			// do stuff for this key binding here
+			// remember you may need to send packet to server
+		}
 	}
 	
 	@SideOnly(Side.CLIENT)

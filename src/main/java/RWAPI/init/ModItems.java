@@ -12,12 +12,11 @@ import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 
 public class ModItems {
-	public static final List<Item> ITEMS = new ArrayList<Item>();
-	public static final List<ItemBase> temp = new ArrayList<ItemBase>();
+	public static final List<ItemBase> ITEMS = new ArrayList<ItemBase>();
 	public static final List<Item> skill = new ArrayList<Item>();
 	public static final List<Item> weapon = new ArrayList<Item>();
 	
-	public static final ItemBase RUBY = new Ruby("ruby");
+	public static final Item RUBY = new Ruby("baseitem");
 	public static final ItemBase LongSword = new LongSword("longsword");
 	public static final ItemBase Dagger = new Dagger("dagger");
 	public static final ItemBase Recurvebow = new Recurvebow("recurvebow");
@@ -70,5 +69,6 @@ public class ModItems {
 	public static final SkillBase highlander = new SkillBase("masteryi","highlander");
 	
 	public static final WeaponBase leesin = new RWAPI.items.weapon.leesin("leesin");
+	public static final WeaponBase masteryi = new RWAPI.items.weapon.masteryi("masteryi");
 	
 }
