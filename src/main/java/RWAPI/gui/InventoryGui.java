@@ -39,7 +39,7 @@ public class InventoryGui extends GuiContainer {
 		GlStateManager.disableLighting();
 		GlStateManager.disableDepth();
 		GlStateManager.disableBlend();
-		for (int y = 0; y < 3; ++y) {
+		for (int y = 1; y < 4; ++y) {
 			for (int x = 0; x < 9; ++x) {
 				double dcool = NetworkUtil.receiveItemCool(3*y+x);
 				String cool = dcool < 1 ? String.format("%.2f", dcool) : String.format("%d", (int)dcool);
