@@ -67,8 +67,22 @@ public class ModItems {
 	public static final SkillBase meditation = new SkillBase("masteryi","meditation");
 	public static final SkillBase wujustyle = new SkillBase("masteryi","wujustyle");
 	public static final SkillBase highlander = new SkillBase("masteryi","highlander");
+
+	public static final SkillBase blazingpalm = new SkillBase("forcemaster","blazingpalm");
+	public static final SkillBase frostpalm = new SkillBase("forcemaster","frostpalm");
+	public static final SkillBase firestorm = new SkillBase("forcemaster","firestorm");
+	public static final SkillBase icecoil = new SkillBase("forcemaster","icecoil");
+	public static final SkillBase blazingbeam = new SkillBase("forcemaster","blazingbeam");
+	public static final SkillBase snowball = new SkillBase("forcemaster","snowball");
+	public static final SkillBase heatwave = new SkillBase("forcemaster","heatwave");
+	public static final SkillBase heatwave2 = new SkillBase("forcemaster","heatwave2");
+	public static final SkillBase icerain = new SkillBase("forcemaster","icerain");
+	public static final SkillBase inferno = new SkillBase("forcemaster","inferno");
+	public static final SkillBase frostarmor = new SkillBase("forcemaster","frostarmor");
+	public static final SkillBase frostarmor2 = new SkillBase("forcemaster","frostarmor2");
 	
 	public static final WeaponBase leesin = new RWAPI.items.weapon.leesin("leesin");
 	public static final WeaponBase masteryi = new RWAPI.items.weapon.masteryi("masteryi");
+	public static final WeaponBase formaster = new RWAPI.items.weapon.formaster("formaster");
 	
 }

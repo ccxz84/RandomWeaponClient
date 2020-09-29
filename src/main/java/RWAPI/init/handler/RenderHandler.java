@@ -1,5 +1,7 @@
 package RWAPI.init.handler;
 
+import RWAPI.Character.ForceMaster.entity.*;
+import RWAPI.Character.ForceMaster.render.*;
 import RWAPI.Character.Leesin.entity.EntityTempest;
 import RWAPI.Character.Leesin.entity.EntityResonating;
 import RWAPI.Character.Leesin.entity.EntityStrike;
@@ -26,5 +28,14 @@ public class RenderHandler {
 		RenderingRegistry.registerEntityRenderingHandler(EntityStrike.class, new RenderStrike.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityTempest.class, new RenderTempest.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityAlpha.class, new RenderAlpha.Factory());
+		RenderingRegistry.registerEntityRenderingHandler(EntityBlazingpalm.class, new RenderBlazingpalm.Factory());
+		RenderingRegistry.registerEntityRenderingHandler(EntityBlazingbeam.class, new RenderBlazingbeam.Factory());
+		RenderingRegistry.registerEntityRenderingHandler(EntityFirestorm.class, new RenderFirestorm.Factory());
+		RenderingRegistry.registerEntityRenderingHandler(EntityFrostpalm.class, new RenderFrostpalm.Factory());
+		RenderingRegistry.registerEntityRenderingHandler(EntityInferno.class, new RenderInferno.Factory());
+		RenderingRegistry.registerEntityRenderingHandler(EntitySnowball.class, new RenderSnowball.Factory());
+		RenderingRegistry.registerEntityRenderingHandler(EntityHeatwave.class, new RenderHeatwave.Factory());
+		RenderingRegistry.registerEntityRenderingHandler(EntitytempHeatwave.class, new RendertempHeatwave.Factory());
+		RenderingRegistry.registerEntityRenderingHandler(EntityIcerain.class, new RenderIcerain.Factory());
 	}
 }

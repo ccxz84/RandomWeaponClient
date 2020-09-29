@@ -99,9 +99,9 @@ public class SkillKeyEvent {
 		RayTraceResult rs = mc.objectMouseOver;
         if (gs.keyBindAttack.isPressed()) // add your additional conditions here
         {
+			main.network.sendToServer(new KeyInputPacket(-1));
             float data = mc.player.getCooledAttackStrength(0.0F);
 	    	if(data >= 1){
-	    		
 	    		switch (rs.typeOfHit)
                 {
                     case ENTITY:

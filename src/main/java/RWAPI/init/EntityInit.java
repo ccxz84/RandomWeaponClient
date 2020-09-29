@@ -3,6 +3,7 @@ package RWAPI.init;
 import java.util.ArrayList;
 import java.util.List;
 
+import RWAPI.Character.ForceMaster.entity.*;
 import RWAPI.Character.MasterYi.entity.EntityAlpha;
 import RWAPI.main;
 import RWAPI.Character.Leesin.entity.EntityTempest;
@@ -53,5 +54,14 @@ public class EntityInit {
 		data.add(new registData("merchant",EntityMerchant.class,Reference.ENTITY_MERCHANT));
 		data.add(new registData("minion",EntityMinion.class,Reference.ENTITY_MINION));
 		data.add(new registData("alphastrike", EntityAlpha.class,Reference.ENTITY_ALPHA));
+		data.add(new registData("blazingpalm", EntityBlazingpalm.class,Reference.ENTITY_BLAZINGPALM));
+		data.add(new registData("firstorm", EntityBlazingbeam.class,Reference.ENTITY_FIRESTORM));
+		data.add(new registData("blazingbeam", EntityFirestorm.class,Reference.ENTITY_BLAZINGBEAM));
+		data.add(new registData("tempheatwave", EntitytempHeatwave.class,Reference.ENTITY_TEMPHEATWAVE));
+		data.add(new registData("heatwave", EntityHeatwave.class,Reference.ENTITY_HEATWAVE));
+		data.add(new registData("inferno", EntityFrostpalm.class,Reference.ENTITY_INFERNO));
+		data.add(new registData("frostpalm", EntityInferno.class,Reference.ENTITY_FROSTPALM));
+		data.add(new registData("snowball", EntitySnowball.class,Reference.ENTITY_SNOWBALL));
+		data.add(new registData("icerain", EntityIcerain.class,Reference.ENTITY_ICERAIN));
 	}
 }

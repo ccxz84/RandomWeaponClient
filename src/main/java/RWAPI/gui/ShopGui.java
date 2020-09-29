@@ -33,7 +33,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ShopGui extends GuiContainer{
 	private static final ResourceLocation base_gui = new ResourceLocation(Reference.MODID + ":textures/gui/shop.png");
 	ShopUI inv;
-	private ItemStack currentstack = ItemStack.EMPTY;
 	
 	public ShopGui(Container inventorySlotsIn) {
 		super(inventorySlotsIn);
@@ -61,11 +60,12 @@ public class ShopGui extends GuiContainer{
 		GL11.glColor4f(1, 1, 1, 1);
 		this.mc.renderEngine.bindTexture(base_gui);
 		drawTexturedModalRect(this.guiLeft + 121, this.guiTop + 15 + ((75/inv.scrollMax)*inv.scroll), 244, 239, 12, 17);
-
-		if(!currentstack.equals(ItemStack.EMPTY)){
-			drawText(((ItemBase)currentstack.getItem()).name, this.guiLeft + 163 - (((ItemBase)currentstack.getItem()).name.length()),this.guiTop + 95, 0xffffff, 1);
-			drawText(((ItemBase)currentstack.getItem()).gold + " Gold", this.guiLeft + 163 - (((ItemBase)currentstack.getItem()).name.length()),this.guiTop + 105, 0xffffff, 1);
+		if(this.inventorySlots.inventoryItemStacks.size()>66&&!this.inventorySlots.inventoryItemStacks.get(66).equals(ItemStack.EMPTY)){
+			ItemStack stack = this.inventorySlots.inventoryItemStacks.get(66);
+			drawText(((ItemBase)stack.getItem()).name, this.guiLeft + 163 - (((ItemBase)stack.getItem()).name.length()),this.guiTop + 95, 0xffffff, 1);
+			drawText(((ItemBase)stack.getItem()).gold + " Gold", this.guiLeft + 163 - (((ItemBase)stack.getItem()).name.length()),this.guiTop + 105, 0xffffff, 1);
 		}
+
 		//drawTexturedModalRect(this.guiLeft + 121, this.guiTop + 15, 244, 239, 12, 17);
 	}
 	
@@ -101,7 +101,6 @@ public class ShopGui extends GuiContainer{
 		
 		buyButton button = new buyButton(1,guiLeft+223,guiTop + 95,30,20,"구매");
 		this.addButton(button);
-		currentstack = stack;
 
 		int x = inv.inventorySlots.size();
 		for(int i =66;i<x;i++) {
@@ -191,7 +190,6 @@ public class ShopGui extends GuiContainer{
 			}
 
 		    //this.addSlotToContainer(new Slot(new ItemButton(ItemStack.EMPTY),0,190,18));
-			System.out.println(this.getInventory().size());
 		    scrollTo(0);
 			this.addListener(this);
 		}
