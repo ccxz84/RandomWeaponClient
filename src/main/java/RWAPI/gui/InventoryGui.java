@@ -74,27 +74,45 @@ public class InventoryGui extends GuiContainer {
 		this.mc.renderEngine.bindTexture(base_gui);
 		drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
 		drawText("공격력", this.guiLeft + 10,this.guiTop + 10, 0xab1a1a);//빨간색
-		drawText("" + (int)main.data.ad, this.guiLeft + 55,this.guiTop + 10, 0xffffff);
+		drawText("" + (int)main.data.ad, this.guiLeft + 57,this.guiTop + 10, 0xffffff);
 		
 		drawText("주문력", this.guiLeft + 10,this.guiTop + 20, 0x254adb);//파란색
-		drawText("" + (int)main.data.ap, this.guiLeft + 55,this.guiTop + 20, 0xffffff);
+		drawText("" + (int)main.data.ap, this.guiLeft + 57,this.guiTop + 20, 0xffffff);
+
+		drawText("방어력", this.guiLeft + 10,this.guiTop + 30, 0xb8bd31);//어두운 노란색
+		drawText("" + (int)main.data.armor, this.guiLeft + 57,this.guiTop + 30, 0xffffff);
+
+		drawText("방어 관통력", this.guiLeft + 10,this.guiTop + 40, 0xb51929);//파란색
+		drawText("" + (int)main.data.armorpenetration + "(" + String.format("%d",(int)main.data.armorpenetrationper)+"%)", this.guiLeft + 57,this.guiTop + 40, 0xffffff);
 		
-		drawText("이동속도", this.guiLeft + 10,this.guiTop + 30, 0x00000);//검은색
-		drawText("" + (int)main.data.move, this.guiLeft + 55,this.guiTop + 30, 0xffffff);
+		drawText("이동속도", this.guiLeft + 10,this.guiTop + 50, 0x00000);//검은색
+		drawText("" + (int)main.data.move, this.guiLeft + 57,this.guiTop + 50, 0xffffff);
+
+		//drawText("치명 확률", this.guiLeft + 10,this.guiTop + 60, 0xf22944);//흐린 빨강
+		//drawText("" + (int)main.data.move, this.guiLeft + 57, this.guiTop + 60, 0xffffff);
 		
 		
 		
 		drawText("체력 재생", this.guiLeft + 100,this.guiTop + 10, 0x16c925);//빨간색
-		drawText("" + String.format("%.2f",main.data.regenHealth), this.guiLeft + 145,this.guiTop + 10, 0xffffff);
+		drawText("" + String.format("%.2f",main.data.regenHealth), this.guiLeft + 147,this.guiTop + 10, 0xffffff);
 		
 		drawText("마나 재생", this.guiLeft + 100,this.guiTop + 20, 0xa816c9);//파란색
-		drawText("" + String.format("%.2f",main.data.regenMana), this.guiLeft + 145,this.guiTop + 20, 0xffffff);
+		drawText("" + String.format("%.2f",main.data.regenMana), this.guiLeft + 147,this.guiTop + 20, 0xffffff);
+
+		drawText("마법 저항력", this.guiLeft + 100,this.guiTop + 30, 0x98199e);//어두운 보라
+		drawText("" + String.format("%d",(int)main.data.magicresistance), this.guiLeft + 147,this.guiTop + 30, 0xffffff);
+
+		drawText("마법 관통력", this.guiLeft + 100,this.guiTop + 40, 0x940068);//어두운 보라
+		drawText("" + String.format("%d",(int)main.data.magicpenetration)+"("+String.format("%d",(int)main.data.magicpenetrationper)+"%)", this.guiLeft + 147,this.guiTop + 40, 0xffffff);
+
+		drawText("공격 속도", this.guiLeft + 100,this.guiTop + 50, 0x0);//파란색
+		drawText("" + String.format("%.2f",main.data.attackSpeed), this.guiLeft + 147,this.guiTop + 50, 0xffffff);
+
+		//drawText("치명 피해", this.guiLeft + 100,this.guiTop + 60, 0x990015);//진한 빨강
+		//drawText("" + String.format("%.2f",main.data.attackSpeed), this.guiLeft + 147,this.guiTop + 60, 0xffffff);
 		
-		drawText("공격 속도", this.guiLeft + 100,this.guiTop + 30, 0x0);//파란색
-		drawText("" + String.format("%.2f",main.data.attackSpeed), this.guiLeft + 145,this.guiTop + 30, 0xffffff);
-		
-		drawText("경험치", this.guiLeft + 55,this.guiTop + 42, 0xffcf00);//파란색
-		drawText((int)main.data.exp + " / " + (int)main.data.expmax, this.guiLeft + 90,this.guiTop + 42, 0xffffff);
+		drawText("경험치", this.guiLeft + 55,this.guiTop + 72, 0xffcf00);//파란색
+		drawText((int)main.data.exp + " / " + (int)main.data.expmax, this.guiLeft + 90,this.guiTop + 72, 0xffffff);
 
 
 	}

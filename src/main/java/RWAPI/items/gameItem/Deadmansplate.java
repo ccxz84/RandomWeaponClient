@@ -3,17 +3,18 @@ package RWAPI.items.gameItem;
 import RWAPI.init.ModItems;
 import net.minecraft.creativetab.CreativeTabs;
 
-public class Spectrescowl extends ItemBase {
+public class Deadmansplate extends ItemBase {
 
-	public Spectrescowl(String name) {
+	public Deadmansplate(String name) {
 		super(name);
 		setCreativeTab(CreativeTabs.MATERIALS);
 		ModItems.ITEMS.add(this);
 		down_item = new ItemBase[2];
-		down_item[0] =ModItems.Rubycrystal;
-		down_item[1] =ModItems.Nullmagicmantle;
+		down_item[0] =ModItems.Chainvest;
+		down_item[1] =ModItems.Giantsbelt;
 		
-		phase = 2;
+		phase = 1;
 		// TODO Auto-generated constructor stub
 	}
+
 }

@@ -3,17 +3,16 @@ package RWAPI.items.gameItem;
 import RWAPI.init.ModItems;
 import net.minecraft.creativetab.CreativeTabs;
 
-public class Spectrescowl extends ItemBase {
+public class Pickaxe extends ItemBase {
 
-	public Spectrescowl(String name) {
+	public Pickaxe(String name) {
 		super(name);
 		setCreativeTab(CreativeTabs.MATERIALS);
 		ModItems.ITEMS.add(this);
-		down_item = new ItemBase[2];
-		down_item[0] =ModItems.Rubycrystal;
-		down_item[1] =ModItems.Nullmagicmantle;
+		this.name = "곡괭이";
+		down_item = new ItemBase[0];
 		
-		phase = 2;
+		phase = 3;
 		// TODO Auto-generated constructor stub
 	}
 }

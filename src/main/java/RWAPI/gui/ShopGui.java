@@ -116,10 +116,12 @@ public class ShopGui extends GuiContainer{
 		
 		if(phase == 1) {
 			for(int i = 0; i < down_item.length; i++) {
+				System.out.println("main item : " + stack.getItem() + " down item : " + down_item[i] + " i : " + i);
 				if(i == 0) {
 					DrawButton(new ItemStack(down_item[i]),down_item[i].down_item,x-40,y+20,down_item[i].phase);
 				}
 				else if(i == 1) {
+
 					DrawButton(new ItemStack(down_item[i]),down_item[i].down_item,x+40,y+20,down_item[i].phase);
 				}
 				else if(i == 2) {
@@ -162,12 +164,13 @@ public class ShopGui extends GuiContainer{
 	@SideOnly(Side.CLIENT)
 	public static class ShopUI extends Container implements IContainerListener{
 		public int scroll = 0;
-		public int scrollMax = ModItems.ITEMS.size()%32 == 0 ? ModItems.ITEMS.size()/32:(ModItems.ITEMS.size()/32) + 1;
+		public int scrollMax = ModItems.ITEMS.size()- 30 <= 0 ? 0:((ModItems.ITEMS.size()-30)/6)+1;
 		private Inventory inven;
 		private ShopGui gui;
 		
 		public ShopUI(InventoryPlayer playerInv) {
 			inven = new Inventory();
+
 			// Player Inventory, Slot 9-35, Slot IDs 9-35
 			for (int y = 0; y < 5; ++y) {
 				for (int x = 0; x < 6; ++x) {

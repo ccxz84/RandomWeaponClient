@@ -19,13 +19,13 @@ public class InventoryUI extends Container {
 		// Player Inventory, Slot 9-35, Slot IDs 9-35
 		for (int y = 0; y < 3; ++y) {
 			for (int x = 0; x < 9; ++x) {
-				this.addSlotToContainer(new Slot(playerInv, x + y * 9 + 9, 8 + x * 18, 51+y * 18));
+				this.addSlotToContainer(new Slot(playerInv, x + y * 9 + 9, 8 + x * 18, 82+y * 18));
 			}
 		}
 
 		// Player Inventory, Slot 0-8, Slot IDs 36-44
 		for (int x = 0; x < 9; ++x) {
-			this.addSlotToContainer(new Slot(playerInv, x, 8 + x * 18, 108));
+			this.addSlotToContainer(new Slot(playerInv, x, 8 + x * 18, 140));
 		}
 	    
 	}

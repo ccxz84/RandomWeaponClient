@@ -30,6 +30,15 @@ public class ClientData implements Serializable{
 	public double regenHealth = 0;
 	public double regenMana = 0;
 
+	public double armor;
+	public double magicresistance;
+
+	public double armorpenetration;
+	public double magicpenetration;
+
+	public double armorpenetrationper;
+	public double magicpenetrationper;
+
 	public double attackSpeed;
 
 	public int Gold = 0;

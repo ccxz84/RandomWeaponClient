@@ -68,26 +68,43 @@ public class ItemBase extends Item implements IHasModel{
 			tooltip.add(TextFormatting.AQUA +"마나 + " + stat[3]);
 		}
 		if(stat[4] != 0){
-			tooltip.add(TextFormatting.WHITE +"이동속도 + " + stat[4]);
+			tooltip.add(TextFormatting.YELLOW +"방어력 + " + stat[4]);
 		}
 		if(stat[5] != 0){
-			tooltip.add(TextFormatting.BOLD+"공격속도 + " + stat[5]);
+			tooltip.add(TextFormatting.LIGHT_PURPLE +"마법 저항력 + " + stat[5]);
 		}
 		if(stat[6] != 0){
-			tooltip.add(TextFormatting.DARK_GREEN +"체력재생 + " + stat[6]);
+			tooltip.add(TextFormatting.WHITE +"이동속도 + " + stat[6]);
 		}
 		if(stat[7] != 0){
-			tooltip.add(TextFormatting.DARK_AQUA +"마나재생 +" + stat[7]);
+			tooltip.add(TextFormatting.BOLD+"공격속도 + " + stat[7]);
+		}
+		if(stat[8] != 0){
+			tooltip.add(TextFormatting.DARK_GREEN +"체력재생 + " + stat[8]);
+		}
+		if(stat[9] != 0){
+			tooltip.add(TextFormatting.DARK_AQUA +"마나재생 +" + stat[9]);
+		}
+		if(stat[10] != 0){
+			tooltip.add(TextFormatting.RED +"방어 관통력 +" + stat[10]);
+		}
+		if(stat[11] != 0){
+			tooltip.add(TextFormatting.DARK_PURPLE +"마법 관통력 +" + stat[11]);
 		}
 
-		String basic_effect, usage_effect;
+		String basic_effect, usage_effect, inherence_effect;
 		basic_effect = nbt.getString("basic");
 		usage_effect = nbt.getString("usage");
+		inherence_effect = nbt.getString("inherence");
 		if(basic_effect.length() != 0){
 			tooltip.add("");
-			tooltip.add(TextFormatting.YELLOW + "고유 지속 효과 : "+TextFormatting.GRAY + basic_effect);
+			tooltip.add(TextFormatting.YELLOW + "기본 지속 효과 : "+TextFormatting.GRAY + basic_effect);
 		}
 
+		if(inherence_effect.length() != 0){
+			tooltip.add("");
+			tooltip.add(TextFormatting.YELLOW + "고유 지속 효과 : "+TextFormatting.GRAY + inherence_effect);
+		}
 
 		if(usage_effect.length() != 0){
 			tooltip.add("");
