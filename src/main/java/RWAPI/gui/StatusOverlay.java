@@ -169,7 +169,7 @@ public class StatusOverlay extends Gui {
 		
 		this.mc.getTextureManager().bindTexture(healthTexture);
 		
-		String Health = (int)main.data.CurrentHealth + " / " + (int)main.data.MaxHealth;
+		String Health = (int)main.data.CurrentHealth + " / " + (int)main.data.MaxHealth + (main.data.totalshield > 0 ? ("+ " + (int)main.data.totalshield):"");
 		
 		GL11.glColor4f(1, 1, 1, 1);
 		this.drawTexturedModalRect(halfWidth - status_textureX/2, defaultY-status_textureY-expTextureY, 0,2, status_textureX, status_textureY);
@@ -196,7 +196,7 @@ public class StatusOverlay extends Gui {
 			if(Enemydata != null){
 				double EnemyPercent = Enemydata.CurrentHealth / Enemydata.MaxHealth;
 
-				String EnemyHP = (int)Enemydata.CurrentHealth + " / " + (int)Enemydata.MaxHealth;
+				String EnemyHP = (int)Enemydata.CurrentHealth + " / " + (int)Enemydata.MaxHealth + (Enemydata.totalshield > 0 ? (" + " + (int)Enemydata.totalshield):"");
 
 				this.mc.getTextureManager().bindTexture(healthTexture);
 				this.drawTexturedModalRect(halfWidth - status_textureX/2,15,0,2,status_textureX, (status_textureY/2));
@@ -249,7 +249,7 @@ public class StatusOverlay extends Gui {
         		double dcool = NetworkUtil.receiveItemCool(i*3+j);
 
         		String cool = dcool < 1 ? String.format("%.2f", dcool) : String.format("%d", (int)dcool);
-        		this.renderHotbarItem(res.getScaledWidth()-item_textureX + 3 + 20*j, Height - gold_textureY-item_textureY + 3 + 21*i,
+        		this.renderHotbarItem(res.getScaledWidth()-item_textureX + 4 + 20*j, Height - gold_textureY-item_textureY + 3 + 21*i,
 						partialTicks, player, player.inventory.mainInventory.get(i*3+j));
 				if(dcool <= 0)
 					continue;

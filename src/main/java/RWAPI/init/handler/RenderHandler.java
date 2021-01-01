@@ -12,8 +12,11 @@ import RWAPI.Character.Leesin.render.RenderStrike;
 import RWAPI.Character.Leesin.render.RenderUmpa;
 import RWAPI.Character.MasterYi.entity.EntityAlpha;
 import RWAPI.Character.MasterYi.render.RenderAlpha;
+import RWAPI.Character.monster.entity.EntityDragon;
+import RWAPI.Character.monster.entity.EntityGolem;
 import RWAPI.Character.monster.entity.EntityMinion;
-import RWAPI.Character.monster.render.RenderMinion;
+import RWAPI.Character.monster.entity.EntityWitch;
+import RWAPI.Character.monster.render.*;
 import RWAPI.Character.shop.entity.EntityMerchant;
 import RWAPI.Character.shop.render.RenderMerchant;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -23,7 +26,6 @@ public class RenderHandler {
 	public static void registerEntityRenders() {
 		RenderingRegistry.registerEntityRenderingHandler(EntityUmpa.class, new RenderUmpa.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityMerchant.class, new RenderMerchant.Factory());
-		RenderingRegistry.registerEntityRenderingHandler(EntityMinion.class, new RenderMinion.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityResonating.class, new RenderResonating.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityStrike.class, new RenderStrike.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityTempest.class, new RenderTempest.Factory());
@@ -37,5 +39,13 @@ public class RenderHandler {
 		RenderingRegistry.registerEntityRenderingHandler(EntityHeatwave.class, new RenderHeatwave.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntitytempHeatwave.class, new RendertempHeatwave.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityIcerain.class, new RenderIcerain.Factory());
+
+
+		//monster
+		RenderingRegistry.registerEntityRenderingHandler(EntityMinion.class, new RenderMinion.Factory());
+		RenderingRegistry.registerEntityRenderingHandler(EntityDragon.class, new RenderDragon.Factory());
+		RenderingRegistry.registerEntityRenderingHandler(EntityGolem.class, new RenderGolem.Factory());
+		RenderingRegistry.registerEntityRenderingHandler(EntityWitch.class, new RenderWitch.Factory());
+		RenderingRegistry.registerEntityRenderingHandler(EntityWitch.effect.class, new Rendereffect.Factory());
 	}
 }

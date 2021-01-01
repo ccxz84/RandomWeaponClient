@@ -9,6 +9,7 @@ import RWAPI.main;
 import RWAPI.packet.ShopScrollPacket;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.inventory.*;
+import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.SPacketSetSlot;
 import net.minecraft.util.NonNullList;
@@ -62,8 +63,11 @@ public class ShopGui extends GuiContainer{
 		drawTexturedModalRect(this.guiLeft + 121, this.guiTop + 15 + ((75/inv.scrollMax)*inv.scroll), 244, 239, 12, 17);
 		if(this.inventorySlots.inventoryItemStacks.size()>66&&!this.inventorySlots.inventoryItemStacks.get(66).equals(ItemStack.EMPTY)){
 			ItemStack stack = this.inventorySlots.inventoryItemStacks.get(66);
-			drawText(((ItemBase)stack.getItem()).name, this.guiLeft + 163 - (((ItemBase)stack.getItem()).name.length()),this.guiTop + 95, 0xffffff, 1);
-			drawText(((ItemBase)stack.getItem()).gold + " Gold", this.guiLeft + 163 - (((ItemBase)stack.getItem()).name.length()),this.guiTop + 105, 0xffffff, 1);
+			NBTTagCompound nbt = stack.getTagCompound();
+			if(nbt != null){
+				drawText(((ItemBase)stack.getItem()).name, this.guiLeft + 163 - (((ItemBase)stack.getItem()).name.length()),this.guiTop + 95, 0xffffff, 1);
+				drawText( nbt.getInteger("remaingold")+ " Gold", this.guiLeft + 163 - (((ItemBase)stack.getItem()).name.length()),this.guiTop + 105, 0xffffff, 1);
+			}
 		}
 
 		//drawTexturedModalRect(this.guiLeft + 121, this.guiTop + 15, 244, 239, 12, 17);
@@ -91,7 +95,6 @@ public class ShopGui extends GuiContainer{
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		// TODO Auto-generated method stub
 		super.drawScreen(mouseX, mouseY, partialTicks);
-		//System.out.println(this.inventorySlots.inventorySlots.get(0).getStack().hashCode());
 		renderHoveredToolTip(mouseX,mouseY);
 		this.inventorySlots.detectAndSendChanges();
 
@@ -116,7 +119,6 @@ public class ShopGui extends GuiContainer{
 		
 		if(phase == 1) {
 			for(int i = 0; i < down_item.length; i++) {
-				System.out.println("main item : " + stack.getItem() + " down item : " + down_item[i] + " i : " + i);
 				if(i == 0) {
 					DrawButton(new ItemStack(down_item[i]),down_item[i].down_item,x-40,y+20,down_item[i].phase);
 				}
@@ -270,6 +272,11 @@ public class ShopGui extends GuiContainer{
 			gui = instance;
 			return gui;
 		}
+
+		public ShopGui getShopGui(){
+			return gui;
+		}
+
 
 		@Override
 		public void detectAndSendChanges() {

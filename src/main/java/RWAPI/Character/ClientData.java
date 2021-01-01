@@ -39,6 +39,8 @@ public class ClientData implements Serializable{
 	public double armorpenetrationper;
 	public double magicpenetrationper;
 
+	public double totalshield;
+
 	public double attackSpeed;
 
 	public int Gold = 0;

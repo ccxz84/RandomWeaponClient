@@ -11,6 +11,9 @@ public class Reference {
 	public static final int ENTITY_MERCHANT = 100;
 	public static final int ENTITY_MINION = 150;
 	public static final int ENTITY_DRAGON = 151;
+	public static final int ENTITY_WITCH= 152;
+	public static final int ENTITY_WITCHEFFECT= 1521;
+	public static final int ENTITY_GOLEM = 153;
 	public static final int ENTITY_SONICWAVE = 200;
 	public static final int ENTITY_RESONATING = 201;
 	public static final int ENTITY_STRIKE = 202;
